@@ -1,0 +1,23 @@
+[
+    {
+      "title": "JavaScript ES6",
+      "content": "JS in general is a loose and sloppy language. Not very strong typing of variables which makes it buggy and hard to debug",
+      "creator": 1
+    },
+    {
+        "title": "Haskell",
+        "content": "Haskell is functional language and steep learning curve. After a while it grows on you with the very strong type casting requirements",
+        "creator": 2
+      },
+      {
+        "title": "Python",
+        "content": "Scripting general programming language with lots and lots of libraries, great tool to explore not sure it is good for production though",
+        "creator": 1
+      },
+      {
+        "title": "Minizinc",
+        "content": "Specialized constraint modelling programming language, easy to use but can be hard to debug",
+        "creator": 3
+      }
+    
+  ]

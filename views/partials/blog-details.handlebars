@@ -1,0 +1,16 @@
+<section class="card">
+    <header style="display:flex; justify-content: space-between; background-color:yellow">
+      <h4>{{title}}</h4>      
+      <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
+
+    </header>
+    <div class="card-body">
+      <p> {{content}}</p>
+      <p></p>
+      {{#if logged_in}}
+            <p>logged in</p>
+       <button class="btn" id="HomePage">Comment</button>
+       {{/if}}
+    </div>
+  </a>
+</section>

@@ -1,0 +1,33 @@
+[
+    {
+      "title": "JavaScript ES6",
+      "content": "I disagree. It is easy to use and flexible",
+      "commentor": 2,
+      "PostRef": 1
+    },
+    {
+        "title": "JavaScript ES6",
+        "content": "Yes these are good points, however fastest deployment language for web apps !!",
+        "commentor": 4,
+        "PostRef": 1
+      },
+    {
+        "title": "Haskell the Rascal",
+        "content": "Agree! Loops are recursive, everything is immutable!  Argh! ",
+        "commentor": 1,
+        "PostRef": 2
+      },
+      {
+        "title": "Python",
+        "content": "Yes these are good points, however fastest deployment language for web apps !!",
+        "commentor": 2,
+        "PostRef": 3
+      },
+      {
+        "title": "Minizinc",
+        "content": "Never heard of Minizinc, what is it used for ?",
+        "commentor": 1,
+        "PostRef": 4
+      }
+    
+  ]
