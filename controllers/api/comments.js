@@ -1,19 +1,17 @@
+// '/' get, post
 const router = require('express').Router();
-const { User, BlogPost } = require('../models');
+const { User, BlogPost ,Comments } = require('../models');
 const withAuth = require('../utils/auth');
 // withAuth,
 // Prevent non logged in users from viewing the homepage
-router.get('/', withAuth, async (req, res) => {
+router.get('/',  async (req, res) => {
   try {
-    const userBlogs = await BlogPost.findAll({ 
-    where:{creator:req.session.user_id},
-    include:[{model:User}]
-    });
+    const comments = await Comments.findAll();
     
-    let blogs = userBlogs.map(c => c.get({ plain: true }));
+    let comms = comments.map(c => c.get({ plain: true }));
     
-    res.render('dashboard', {
-      blogs,
+    res.render('comment', {
+      comms,
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
     });
@@ -23,6 +21,3 @@ router.get('/', withAuth, async (req, res) => {
     res.status(500).json(err);
   }
 });
-
-
-module.exports = router;

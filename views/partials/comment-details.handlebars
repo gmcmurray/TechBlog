@@ -5,16 +5,9 @@
       <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
     </header>
     <div class="card-body">
-      <p> {{content}}</p>
-      <p> Number of Comments : {{comments.length}}</p>
+      <p> {{comment.content}}</p>
       {{#if logged_in}}
        <button class="btn" id="Comment">Comment</button>
        {{/if}}
     </div>
-    <script>
-      document.getElementById({{id}}).addEventListener('click', function () {
-        let idblog = {{id}}
-        let ppath = '/singlepost/'+ idblog.toString()
-      return document.location.replace(ppath);});
-    </script>
 </section>

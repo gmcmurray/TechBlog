@@ -1,0 +1,20 @@
+<div class="col align-center mb-5">
+    <h2>MyDashboard</h2>
+    <section class="card" id="{{id}}">
+        <header style="display:flex; justify-content: space-between; background-color:yellow">
+            <h5>Id: {{id}}</h5>
+            <h4>{{title}}</h4>
+            <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
+        </header>
+        <div class="card-body">
+            {{blog.content}}
+        </div>
+    </section>
+        <h2>Comments to Post</h2>
+        {{#each blog.comments as |comment|}}
+        {{>comment-details}}
+        {{/each}}
+
+    <button class="btn" id="Comment">Comment</button>
+    <button class="btn" id="NewPost">NewPost</button>
+</div>

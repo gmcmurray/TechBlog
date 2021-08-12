@@ -1,0 +1,11 @@
+<div class="col align-center mb-5">
+  <h2>{{user.name}} <span>   </span> MyDashboard</h2>
+  <div class="col-md-10">
+    {{#each blogs as |blog| }}
+        {{> blog-details}}
+    {{/each}}
+
+  </div>
+  <button class="btn" id="Comment">Comment</button>
+  <button class="btn" id="NewPost">NewPost</button>
+</div>

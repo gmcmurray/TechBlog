@@ -4,18 +4,19 @@ const withAuth = require('../utils/auth');
 const Sequelize = require('sequelize');
 // withAuth,
 // Prevent non logged in users from viewing the homepage
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
-    const userBlogs = await BlogPost.findAll({ 
+    console.log('into the liquid',req.params.id)
+    const catt = await BlogPost.findByPk(req.params.id,{
       // include: [{ all: true, nested: true }]
       // attributes: ['blogpost.*', 'comments.*', [Sequelize.fn('COUNT', 'comments.PostRef'), 'CommentCount']],
       include: [{model: User}, {model: Comments}]
     });
 
-    const blogs = userBlogs.map(c => c.get({ plain: true }));
-    console.log(blogs);
-    res.render('homepage', {
-      blogs,
+    const blog = catt.get({ plain: true });
+    console.log(blog);
+    res.render('singlepost', {
+      blog,
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
     });
