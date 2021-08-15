@@ -10,4 +10,5 @@ router.use('/dashboard', dashboard);
 router.use('/api', apiRoutes);
 router.use('/singlepost', singlepost)
 
+
 module.exports = router;

@@ -19,6 +19,7 @@ Comments.init(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+
    commentor: {
       type: DataTypes.INTEGER,
       references: {

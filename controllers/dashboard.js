@@ -16,6 +16,8 @@ router.get('/', withAuth, async (req, res) => {
       blogs,
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
+      user_name: req.session.user_name,
+      user_id: req.session.user_id
     });
   } catch (err) {
     console.log(err)

@@ -1,8 +1,9 @@
 
 <div class="row align-center mb-5">
+   <h2>{{user_name}} <span>  {{user_id}} </span> Logged In</h2>
   <div class="col-md-6">
     {{#each blogs as |blog| }}
-        {{> blog-details}}
+        {{> blog-details blog=blog}}
     {{/each}}
   </div>
 </div>

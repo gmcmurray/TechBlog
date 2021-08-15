@@ -1,13 +1,56 @@
-<section class="card" id="{{id}}" >
-    <header style="display:flex; justify-content: space-between; background-color:yellow">
-     <h5>Id: {{id}}</h5>
-      <h4>{{title}}</h4>      
-      <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
-    </header>
-    <div class="card-body">
-      <p> {{comment.content}}</p>
-      {{#if logged_in}}
-       <button class="btn" id="Comment">Comment</button>
-       {{/if}}
+<section class="card comment" id="{{id}}">
+  <header style="display:flex; justify-content: space-between; background-color:lime">
+    <h5>Comment Id: {{id}}</h5>
+    <h4>{{title}}</h4>
+    <h6>posted by {{user.name}}<span> on </span>{{format_date comment.createdAt}}</h6>
+  </header>
+  <div class="card-body">
+    <p> {{content}}</p>
+    {{#if (if_Eq commentor logininfo.id)}}
+    {{!-- <button class="btn" id="EditMyComment{{id}}" onclick="revealIt">EditMyComment</button> --}}
+    <button class="btn"  onclick="revealIt()">EditMyComment</button>
+    help is on its way
+    <div class="editcard" style="display:none">
+      <div>
+        <h1>Edit Comment</h1>
+        <form action="/api/Comments/{{id}}" method="PUT">
+          {{!-- Comment Title: <input type="text" name="title"> --}}
+        <textarea rows="4" cols="50" name="content" form="usrform">
+        {{content}}</textarea>
+          <input type="submit">
+        </form>
+        <br>
+
+      </div>
     </div>
+     {{/if}}
+    <script>
+     function revealIt(){
+       document.getElementsByClassName('editcard')[0].style.display = "block";
+     }
+
+    </script>
+   
 </section>
+
+{{!-- const signupFormHandler = async (event) => {
+  event.preventDefault();
+
+  const username = document.querySelector('#username-signup').value.trim();
+  const email = document.querySelector('#email-signup').value.trim();
+  const password = document.querySelector('#password-signup').value.trim();
+
+  if (username && email && password) {
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      body: JSON.stringify({ username, email, password }),
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    if (response.ok) {
+      document.location.replace('/');
+    } else {
+      alert('Failed to sign up.');
+    }
+  }
+}; --}}

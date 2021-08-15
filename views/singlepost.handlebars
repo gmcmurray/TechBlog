@@ -1,20 +1,54 @@
 <div class="col align-center mb-5">
-    <h2>MyDashboard</h2>
-    <section class="card" id="{{id}}">
+    <h1>MyDashboard : {{logininfo.name}} </h1>
+    <h2>Post</h2>
+    <section class="card blogpost" id="{{id}}">
         <header style="display:flex; justify-content: space-between; background-color:yellow">
-            <h5>Id: {{id}}</h5>
-            <h4>{{title}}</h4>
-            <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
+            <h5>Blog Post Id: {{blog.id}}</h5>
+            <h4>{{blog.title}}</h4>
+            <h6>posted by {{blog.user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
         </header>
         <div class="card-body">
             {{blog.content}}
         </div>
+        {{#if ( if_Eq blog.user.id logininfo.id)}}
+        <button class="btn" id="EditPost">EditMyPost</button>
+        {{/if}}
     </section>
-        <h2>Comments to Post</h2>
-        {{#each blog.comments as |comment|}}
-        {{>comment-details}}
-        {{/each}}
-
-    <button class="btn" id="Comment">Comment</button>
-    <button class="btn" id="NewPost">NewPost</button>
+    <h2>Comments to Post</h2>
+    {{#each blog.comments as |comment|}}
+    {{>comment-details logininfo=../logininfo}}
+    {{/each}}
+    <div id="butts" style="display: flex; ">
+        <button class="btn" style="margin: 10px; color:white" onclick="newcomm()">NewComment</button>
+        <button class="btn" style="margin: 10px; color:white" onclick="newpost()">NewPost</button>
+    </div>
+    <section id="NewComment" style="display: none;">
+        <h1>New Comment Post</h1>
+        <form action="/api/Comments" method="POST">
+            title: <input type="text" name="title">,
+            content: <textarea rows="4" cols="50" name="content" form="usrform">
+        Some new Comment</textarea>
+            PostRefID(integer):<input type="number" name="PostRef">
+            <input type="submit">
+        </form>
+    </section>
+    <section id="NewPost" style="display: none;">
+        <h1>New Blog Post</h1>
+        <form action="/api/BlogPosts" method="PUT">
+            title: <input type="text" name="title">,
+            content: <textarea rows="4" cols="50" name="content" form="usrform">
+        Some new Blog Post</textarea>
+            <input type="submit">
+        </form>
+    </section>
+    <script>
+        function newcomm() {
+            document.querySelector('#NewComment').setAttribute('display','block');
+            document.querySelector('#butts').setAttribute('display','none');
+        };
+        function newpost() {
+            document.getElementById('NewPost').style.display = "block";
+            document.getElementById('butts').style.display = "none";
+        }
+    </script>
 </div>

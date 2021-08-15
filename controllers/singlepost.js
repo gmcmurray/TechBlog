@@ -6,19 +6,29 @@ const Sequelize = require('sequelize');
 // Prevent non logged in users from viewing the homepage
 router.get('/:id', async (req, res) => {
   try {
-    console.log('into the liquid',req.params.id)
     const catt = await BlogPost.findByPk(req.params.id,{
       // include: [{ all: true, nested: true }]
-      // attributes: ['blogpost.*', 'comments.*', [Sequelize.fn('COUNT', 'comments.PostRef'), 'CommentCount']],
-      include: [{model: User}, {model: Comments}]
+    //   attributes: ['blogpost.*', 'comments.*', [Sequelize.fn('COUNT', 'comments.PostRef'), 'CommentCount']],
+      include: [
+         {model: User},
+         {model: Comments,
+            include : {model:User},
+            attributes: { exclude: ['updatedAt'] 
+          }}]
+
     });
 
     const blog = catt.get({ plain: true });
-    console.log(blog);
+    
+    console.log('Here are session variables',req.session.logininfo,req.session.logged_in,req.session.user_id,req.session.user_name)
     res.render('singlepost', {
       blog,
-      // Pass the logged in flag to the template
+    //   Pass the logged in flag, user_name and user_id to the template
       logged_in: req.session.logged_in,
+      user_name: req.session.user_name,
+      user_id: req.session.user_id,
+      logininfo: req.session.logininfo
+     
     });
   } catch (err) {
     console.log(err)
