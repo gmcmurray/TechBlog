@@ -5,13 +5,14 @@ const withAuth = require('../../utils/auth');
 // Prevent non logged in users from viewing the homepage
 router.post('/',  withAuth, async (req, res) => {
   try {
-    const newBlog = await Comments.create({
+    const newComment = await Comments.create({
         title: req.body.title,
         content: req.body.content,
-        commentor:  req.session.user_id
+        commentor:  req.session.user_id,
+        PostRef: req.body.PostRef
     });
     
-    return res.json(newBlog)
+    return res.json(newComment)
  
     // });
   } catch (err) {
@@ -23,15 +24,16 @@ router.post('/',  withAuth, async (req, res) => {
 
 router.put('/:id',  withAuth, async (req, res) => {
   try {
-    const updateBlog = await Comments.update(
-      {title: req.body.title,
+    const updateComment = await Comments.update(
+      { title: req.body.title,
         content: req.body.content,
-        commentor:  req.session.user_id},
+        commentor:  req.session.user_id,
+        PostRef: req.body.PostRef},
       {where: {
         id: req.params.id}
   });
     
-    return res.json(updateBlog)
+    return res.json(updateComment)
  
     // });
   } catch (err) {
@@ -44,13 +46,13 @@ router.put('/:id',  withAuth, async (req, res) => {
 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
-    const oldBlog = await Comments.destroy({
+    const oldComment = await Comments.destroy({
       where: {
         id: req.params.id
       }
     });
     
-    return res.json(oldBlog)
+    return res.json(oldComment)
  
     // });
   } catch (err) {
@@ -62,11 +64,27 @@ router.delete('/:id', withAuth, async (req, res) => {
 
 router.get('/',  withAuth, async (req, res) => {
   try {
-    const newBlog = await Comments.findAll({
+    const newComments = await Comments.findAll({
        
     });
     
-    return res.json(newBlog)
+    return res.json(newComments)
+ 
+    // });
+  } catch (err) {
+    console.log(err)
+   
+    res.status(500).json(err);
+  }
+});
+
+router.get('/:id',  withAuth, async (req, res) => {
+  try {
+    const newComment = await Comments.findByPk(req.params.id,{
+       
+    });
+    
+    return res.json(newComment)
  
     // });
   } catch (err) {

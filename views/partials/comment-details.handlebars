@@ -7,50 +7,62 @@
   <div class="card-body">
     <p> {{content}}</p>
     {{#if (if_Eq commentor logininfo.id)}}
-    {{!-- <button class="btn" id="EditMyComment{{id}}" onclick="revealIt">EditMyComment</button> --}}
-    <button class="btn"  onclick="revealIt()">EditMyComment</button>
-    help is on its way
-    <div class="editcard" style="display:none">
-      <div>
-        <h1>Edit Comment</h1>
-        <form action="/api/Comments/{{id}}" method="PUT">
-          {{!-- Comment Title: <input type="text" name="title"> --}}
-        <textarea rows="4" cols="50" name="content" form="usrform">
-        {{content}}</textarea>
-          <input type="submit">
-        </form>
-        <br>
-
-      </div>
+    <div id="commbutts" style="display: flex;">
+      <button class="btn" onclick="revealIt()">EditMyComment</button>
+      <button class="btn" onclick="DeleteIt({{id}})">Delete Comment</button>
     </div>
-     {{/if}}
+
+
+
+    <section id="EditComment" style="display: none;">
+      <div id="editcommentinput" class="col-md-8">
+        <div style="display:flex; flex-flow: row wrap; ">
+          <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
+          <textarea rows="4" cols="50" id="comcontent" name="content" form="blogposting"></textarea>
+          <button class="btn"  onclick="updateComment( {{id}})">UpdateComments</button>
+        </div>
+      </div>
+    </section>
+
+    {{/if}}
     <script>
-     function revealIt(){
-       document.getElementsByClassName('editcard')[0].style.display = "block";
-     }
+      function revealIt() {
+        document.getElementById('EditComment').style.display = "block";
+        document.getElementById('commbutts').style.display = "none";
+      }
 
+      async function DeleteIt(pkid) {
+        try {
+          const response = await fetch(`/api/comments/${pkid}`, { method: 'DELETE' });
+          if (response.ok) {
+            console.log(`/api/comments/${pkid}`)
+            document.location.replace('/');
+          }
+        }
+        catch (err) { res.status(500).json({ message: 'Not deleted, not found' }) }
+      }
+
+      async function updateComment( idd) {
+        try {
+          const title = "Haskell the Rascal";
+          const content = document.querySelector('#comcontent').value.trim();
+          console.log(content)
+          if (content && title) {
+            const response = await fetch(`/api/comments/${idd}`, {
+              method: 'PUT',
+              body: JSON.stringify({ title, content }),
+              headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.ok) {
+              document.location.replace('/');
+            }
+          }
+        }
+        catch (err) {
+          res.status(500).json({ message: 'Failed to edit comment.' })
+        }
+      };
     </script>
-   
+
 </section>
-
-{{!-- const signupFormHandler = async (event) => {
-  event.preventDefault();
-
-  const username = document.querySelector('#username-signup').value.trim();
-  const email = document.querySelector('#email-signup').value.trim();
-  const password = document.querySelector('#password-signup').value.trim();
-
-  if (username && email && password) {
-    const response = await fetch('/api/users', {
-      method: 'POST',
-      body: JSON.stringify({ username, email, password }),
-      headers: { 'Content-Type': 'application/json' },
-    });
-
-    if (response.ok) {
-      document.location.replace('/');
-    } else {
-      alert('Failed to sign up.');
-    }
-  }
-}; --}}

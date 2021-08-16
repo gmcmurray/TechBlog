@@ -24,7 +24,7 @@ router.post('/',  withAuth, async (req, res) => {
 router.put('/:id',  withAuth, async (req, res) => {
   try {
     const updateBlog = await BlogPost.update(
-      {title: req.body.title,
+      { title: req.body.title,
         content: req.body.content,
         creator:  req.session.user_id},
       {where: {
@@ -60,6 +60,20 @@ router.delete('/:id', withAuth, async (req, res) => {
   }
 });
 
+router.get('/:id', withAuth, async (req, res) => {
+  try {
+    const oldBlog = await BlogPost.findByPk(req.params.id,{
+    });
+    
+    return res.json(oldBlog)
+ 
+    // });
+  } catch (err) {
+    console.log(err)
+   
+    res.status(500).json(err);
+  }
+});
 router.get('/',  withAuth, async (req, res) => {
   try {
     const newBlog = await BlogPost.findAll({
