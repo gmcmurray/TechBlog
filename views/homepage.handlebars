@@ -16,7 +16,7 @@
       </ul>
       </div>
   {{/if}}
-
+ <p>login status {{logged_in}}  also {{logininfo}}</p>
   </div>
 
   {{!-- style="display:flex; flex-flow: column wrap" --}}
@@ -37,7 +37,7 @@
   {{!-- <h2>{{user_name}} <span> {{user_id}} </span> Logged In</h2> --}}
   <div class="col-md-8">
     {{#each blogs as |blog| }}
-    {{> blog-details logininfo=../logininfo}}
+    {{> blog-details logininfo=../logininfo }}
     {{/each}}
   </div>
 </div>

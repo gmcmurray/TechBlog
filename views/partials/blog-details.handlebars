@@ -5,13 +5,14 @@
       <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
     </header>
     <div class="card-body">
+      <p> login status {{logininfo.loginstat}}  user_id  {{logininfo.usid}}</p>
       <p> {{content}}</p>
       <p> Number of Comments : {{comments.length}}</p>
-  {{#if logininfo.status}}
+  {{#if logininfo.loginstat}}
        <button class="btn" id="Comment">Examine</button>
-  {{/if}}
+ {{/if}}
     </div>
-
+ {{#if logininfo.loginstat}}
     <script>
      function moveit(idt){
       document.getElementById(`blog${idt}`).addEventListener('click', function () {
@@ -20,5 +21,5 @@
       return document.location.replace(ppath);});}
       moveit({{id}})
     </script>
-{{!-- {{/if}} --}}
+{{/if}}
 </section>
