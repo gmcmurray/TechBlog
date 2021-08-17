@@ -1,20 +1,24 @@
-<section class="card" id="{{id}}" >
+<section class="card" id="blog{{id}}" >
     <header style="display:flex; justify-content: space-between; background-color:yellow">
-     <h5>Id: {{id}}</h5>
+     <h5>Post Id: {{id}}</h5>
       <h4>{{title}}</h4>      
       <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
     </header>
     <div class="card-body">
       <p> {{content}}</p>
       <p> Number of Comments : {{comments.length}}</p>
-      {{#if logged_in}}
-       <button class="btn" id="Comment">Comment</button>
-       {{/if}}
+  {{#if logininfo.status}}
+       <button class="btn" id="Comment">Examine</button>
+  {{/if}}
     </div>
+
     <script>
-      document.getElementById({{id}}).addEventListener('click', function () {
+     function moveit(idt){
+      document.getElementById(`blog${idt}`).addEventListener('click', function () {
         let idblog = {{id}}
         let ppath = '/singlepost/'+ idblog.toString()
-      return document.location.replace(ppath);});
+      return document.location.replace(ppath);});}
+      moveit({{id}})
     </script>
+{{!-- {{/if}} --}}
 </section>

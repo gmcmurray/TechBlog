@@ -2,8 +2,7 @@ const router = require('express').Router();
 const { User, BlogPost, Comments } = require('../models');
 const withAuth = require('../utils/auth');
 const Sequelize = require('sequelize');
-// withAuth,
-// Prevent non logged in users from viewing the homepage
+
 router.get('/', async (req, res) => {
   try {
     const userBlogs = await BlogPost.findAll({ 
@@ -19,7 +18,8 @@ router.get('/', async (req, res) => {
       // Pass the logged in flag to the template
       logged_in: req.session.logged_in,
       user_name: req.session.user_name,
-      user_id: req.session.user_id
+      user_id: req.session.user_id,
+      logininfo: {user:req.session.logininfo,staus:req.session.logged_in}
     });
   } catch (err) {
     console.log(err)

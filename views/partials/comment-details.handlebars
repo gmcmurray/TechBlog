@@ -1,33 +1,37 @@
 <section class="card comment" id="{{id}}">
   <header style="display:flex; justify-content: space-between; background-color:lime">
-    <h5>Comment Id: {{id}}</h5>
-    <h4>{{title}}</h4>
+    <h6>Comm: {{id}}, PostRef : {{PostRef}}</h6>
+    <h6>{{title}}</h6>
     <h6>posted by {{user.name}}<span> on </span>{{format_date comment.createdAt}}</h6>
   </header>
+  <h6>Commentor {{commentor}}<span> on </span>{{logininfo.id}}</h6>
+
   <div class="card-body">
     <p> {{content}}</p>
     {{#if (if_Eq commentor logininfo.id)}}
     <div id="commbutts" style="display: flex;">
-      <button class="btn" onclick="revealIt()">EditMyComment</button>
+      <button class="btn" onclick="revealIt({{id}})">EditMyComment</button>
       <button class="btn" onclick="DeleteIt({{id}})">Delete Comment</button>
     </div>
 
-
-
-    <section id="EditComment" style="display: none;">
+    <section id="EditComment{{id}}" style="display: none;">
       <div id="editcommentinput" class="col-md-8">
         <div style="display:flex; flex-flow: row wrap; ">
-          <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
-          <textarea rows="4" cols="50" id="comcontent" name="content" form="blogposting"></textarea>
-          <button class="btn"  onclick="updateComment( {{id}})">UpdateComments</button>
+          <h4>Comment Title:</h4> <textarea rows="1" cols="10" id="comtitle{{id}}" name="title" >{{title}}</textarea>
+          <div>
+          <h4> Comment Content:</h4><textarea rows="4" cols="60" id="comcontent{{id}}" name="content" >{{content}}</textarea>
+          <button class="btn"  style="color: white" onclick="updateComment( {{id}})">Update{{id}}</button>
+          </div>
+          
         </div>
       </div>
     </section>
 
     {{/if}}
     <script>
-      function revealIt() {
-        document.getElementById('EditComment').style.display = "block";
+      function revealIt(idd) {
+
+        document.getElementById(`EditComment${idd}`).style.display = "block";
         document.getElementById('commbutts').style.display = "none";
       }
 
@@ -42,12 +46,12 @@
         catch (err) { res.status(500).json({ message: 'Not deleted, not found' }) }
       }
 
-      async function updateComment( idd) {
+      async function updateComment(idd) {
         try {
-          const title = "Haskell the Rascal";
-          const content = document.querySelector('#comcontent').value.trim();
+          const title = document.querySelector(`#comtitle${idd}`).value.trim();
+          const content = document.querySelector(`#comcontent${idd}`).value.trim();
           console.log(content)
-          if (content && title) {
+          if (content) {
             const response = await fetch(`/api/comments/${idd}`, {
               method: 'PUT',
               body: JSON.stringify({ title, content }),

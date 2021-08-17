@@ -1,5 +1,4 @@
 <div class="col align-center mb-5">
-    <h1>MyDashboard : {{logininfo.name}} </h1>
     <h2>Post</h2>
     <section class="card blogpost" id="{{id}}">
         <header style="display:flex; justify-content: space-between; background-color:yellow">
@@ -11,11 +10,26 @@
             {{blog.content}}
         </div>
         {{#if ( if_Eq blog.user.id logininfo.id)}}
-        <div id="commbutts" style="display: flex;">
-        <button class="btn" id="EditPost">EditMyPost</button>
-        <button class="btn" onclick="BlogDeleteIt({{blog.id}})">Delete Post</button>
+        <div id="postbutts" style="display: flex;">
+            <button class="btn" id="EditPost" onclick="revealeditpost()">EditMyPost</button>
+            <button class="btn" onclick="BlogDeleteIt({{blog.id}})">Delete Post</button>
         </div>
         {{/if}}
+    </section>
+
+
+    <section id="EditPosts" style="display: none;">
+        <div id="commentinput" class="col-md-8">
+            <div style="display:flex; flex-flow: row wrap; ">
+                <h5 style: 'margin: 0 10px 0 0'>Comment Title: </h5>
+                <textarea name="title" id="newPostTitle" cols="30" rows="1">{{blog.title}}</textarea>
+            </div>
+            <div style="display:flex; flex-flow: row wrap; ">
+                <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
+                <textarea rows="4" cols="50" id="newPostContent" name="content" form="blogposting">{{blog.content}}</textarea>
+                <button id="submitComment" onclick='submitEditPost({{blog.id}})'>SubmitUpdate</button>
+            </div>
+        </div>
     </section>
 
     <h2>Comments to Post</h2>
@@ -32,17 +46,17 @@
         <div id="commentinput" class="col-md-8">
             <div style="display:flex; flex-flow: row wrap; ">
                 <h5 style: 'margin: 0 10px 0 0'>Comment Title: </h5>
-                <textarea name="title" id="title" cols="30" rows="1"></textarea>
+                <textarea name="title" id="newtitle" cols="30" rows="1"></textarea>
             </div>
             <div style="display:flex; flex-flow: row wrap; ">
                 <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
-                <textarea rows="4" cols="50" id="content" name="content" form="blogposting"></textarea>
-                <button id="submitComment" onclick='subComment({{logininfo.id}},{{blog.id}})'>SubmitComment</button>
+                <textarea rows="4" cols="50" id="newcontent" name="content" form="blogposting"></textarea>
+                <textarea name="PostRef" id="newPostRef" cols="30" rows="1">{{blog.id}}</textarea>
+                <textarea name="commentor" id="newcommentor" cols="30" rows="1">{{logininfo.id}}</textarea>
+                <button id="submitComment" onclick='subComment()'>SubmitComment</button>
             </div>
         </div>
     </section>
-
-
 
 
 
@@ -52,8 +66,12 @@
             document.getElementById('butts').style.display = "none";
         };
 
+        function revealeditpost() {
+            document.getElementById('EditPosts').style.display = "block";
+            document.getElementById('postbutts').style.display = "none";
+            document.getElementById('butts').style.display = "none";
+        };
 
- 
 
         async function BlogDeleteIt(pkid) {
             try {
@@ -66,11 +84,11 @@
             catch (err) { res.status(500).json({ message: 'Not deleted, not found' }) }
         }
 
-        async function subComment(commentr, postreff) {
-            const title = document.querySelector('#title').value.trim();
-            const content = document.querySelector('#content').value.trim();
-            const commentor = commentr;
-            const PostRef = postreff
+        async function subComment() {
+            const title = document.querySelector('#newtitle').value.trim();
+            const content = document.querySelector('#newcontent').value.trim();
+            const commentor = document.querySelector('#newcommentor').value.trim();
+            const PostRef = document.querySelector('#newPostRef').value.trim();
 
             if (content && title) {
                 const response = await fetch('/api/comments', {
@@ -86,7 +104,24 @@
                 }
             }
         };
-        
-       
+        async function submitEditPost(pkid) {
+            const title = document.querySelector('#newPostTitle').value.trim();
+            const content = document.querySelector('#newPostContent').value.trim();
+
+
+            if (content && title) {
+                const response = await fetch(`/api/blogposts/${pkid}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({ title, content}),
+                    headers: { 'Content-Type': 'application/json' },
+                });
+
+                if (response.ok) {
+                    document.location.replace('/');
+                } else {
+                    alert('Failed to post comment.');
+                }
+            }
+        };
     </script>
 </div>

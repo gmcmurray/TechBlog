@@ -2,7 +2,11 @@
   <h2>{{user_name}} <span> {{user_id}}  </span> MyDashboard</h2>
   <div class="col-md-10">
     {{#each blogs as |blog| }}
-        {{> blog-details}}
+        {{> blog-details logininfo=../logininfo}}
+    {{/each}}
+
+    {{#each comments as |comment|}}
+      {{>comment-details logininfo=../logininfo}}
     {{/each}}
 
   </div>
