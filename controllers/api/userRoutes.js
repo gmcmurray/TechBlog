@@ -25,11 +25,10 @@ console.log("logging in here")
 
     // Create session variables based on the logged in userlo
     req.session.save(() => {
-      req.session.logininfo = userData;
       req.session.user_name = userData.name;
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      req.session.data={usid:userData.id,loginstat:true};
+      req.session.logininfo={usid:userData.id,loginstatus:true};
      
       
       res.json({ user: userData, message: 'You are now logged in!' });

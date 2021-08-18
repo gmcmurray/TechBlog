@@ -1,10 +1,11 @@
 <div class="col align-left mb-10">
   <div style="display: flex;">
-    {{#if logged_in}}
+    {{#if logininfo.loginstatus}}
     <div>
       <ul>
         <li><h5>To add comment to a post click on Examine a post below</h5></li>
-        <li><h5>To edit your comments or post goto MyDashboard</h5></li>
+        <li><h5>To edit your comments or posts goto MyDashboard</h5></li>
+        <li><h5>To add a New Post Click on New Post => </h5></li>
       </ul>
     </div>
     <div id="butts" style="display: flex; ">
@@ -16,7 +17,7 @@
       </ul>
       </div>
   {{/if}}
- <p>login status {{logged_in}}  also {{logininfo}}</p>
+ 
   </div>
 
   {{!-- style="display:flex; flex-flow: column wrap" --}}
@@ -29,7 +30,7 @@
       <div style="display:flex; flex-flow: row wrap; ">
         <h5 style: 'margin: 0 10px 0 0'>Blog Content : </h5>
         <textarea rows="4" cols="50" id="content" name="content" form="blogposting"></textarea>
-        <button id="submitPost" onclick='subPost({{logininfo.user.id}})'>SubmitPost</button>
+        <button id="submitPost" onclick='subPost({{logininfo.usid}})'>SubmitPost</button>
       </div>
     </div>
   </div>
@@ -60,7 +61,7 @@
       });
 
       if (response.ok) {
-        document.location.replace('/');
+        document.location.replace('/dashboard');
       } else {
         alert('Failed to post.');
       }

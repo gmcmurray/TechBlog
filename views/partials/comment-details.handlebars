@@ -4,36 +4,36 @@
     <h6>{{title}}</h6>
     <h6>posted by {{user.name}}<span> on </span>{{format_date comment.createdAt}}</h6>
   </header>
-  <h6>Commentor {{commentor}}<span> on </span>{{logininfo.id}}</h6>
 
   <div class="card-body">
     <p> {{content}}</p>
-    {{#if (if_Eq commentor logininfo.id)}}
-    <div id="commbutts" style="display: flex;">
-      <button class="btn" onclick="revealIt({{id}})">EditMyComment</button>
-      <button class="btn" onclick="DeleteIt({{id}})">Delete Comment</button>
+    {{#if (if_Eq commentor logininfo.usid)}}
+    <div id="commbutts" style="display: flex;" class="justify-space-between">
+      <button class="btn"  style="color:white; background-color:yellowgreen" onclick="rrevealIt({{id}})">Edit</button>
+      <button class="btn" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
     </div>
-
-    <section id="EditComment{{id}}" style="display: none;">
+  {{/if}}
+    <div id="EditComment{{id}}" style="display: none;">
       <div id="editcommentinput" class="col-md-8">
         <div style="display:flex; flex-flow: row wrap; ">
-          <h4>Comment Title:</h4> <textarea rows="1" cols="10" id="comtitle{{id}}" name="title" >{{title}}</textarea>
+          <h4>Comment Title:</h4> <textarea rows="1" cols="10" id="comtitle{{id}}" name="title">{{title}}</textarea>
           <div>
-          <h4> Comment Content:</h4><textarea rows="4" cols="60" id="comcontent{{id}}" name="content" >{{content}}</textarea>
-          <button class="btn"  style="color: white" onclick="updateComment( {{id}})">Update{{id}}</button>
+            <h4> Comment Content:</h4><textarea rows="4" cols="60" id="comcontent{{id}}"
+              name="content">{{content}}</textarea>
+            <button class="btn" style="color: white; font:900" onclick="updateComment( {{id}})">Update</button>
           </div>
-          
         </div>
       </div>
-    </section>
+    </div>
 
-    {{/if}}
     <script>
-      function revealIt(idd) {
+      function rrevealIt(idd) {
+        let elementt =`EditComment`+idd.toString();
+        console.log(elementt);
+        document.getElementById(elementt).style.display="block";
+         }
 
-        document.getElementById(`EditComment${idd}`).style.display = "block";
-        document.getElementById('commbutts').style.display = "none";
-      }
+
 
       async function DeleteIt(pkid) {
         try {
@@ -43,7 +43,7 @@
             document.location.replace('/');
           }
         }
-        catch (err) { res.status(500).json({ message: 'Not deleted, not found' }) }
+        catch (err) { console.log('Not deleted, not found') }
       }
 
       async function updateComment(idd) {
@@ -59,12 +59,12 @@
             });
 
             if (response.ok) {
-              document.location.replace('/');
+              document.location.replace('/dashboard');
             }
           }
         }
         catch (err) {
-          res.status(500).json({ message: 'Failed to edit comment.' })
+          console.log('Failed to edit comment.')
         }
       };
     </script>

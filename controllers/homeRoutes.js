@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
       logged_in: req.session.logged_in,
       user_name: req.session.user_name,
       user_id: req.session.user_id,
-      logininfo: req.session.data
+      logininfo: req.session.logininfo
     });
   } catch (err) {
     console.log(err)

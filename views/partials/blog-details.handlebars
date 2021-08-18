@@ -1,25 +1,84 @@
-<section class="card" id="blog{{id}}" >
-    <header style="display:flex; justify-content: space-between; background-color:yellow">
-     <h5>Post Id: {{id}}</h5>
-      <h4>{{title}}</h4>      
-      <h6>posted by {{user.name}}<span>  on   </span>{{format_date user.createdAt}}</h6>
-    </header>
-    <div class="card-body">
-      <p> login status {{logininfo.loginstat}}  user_id  {{logininfo.usid}}</p>
-      <p> {{content}}</p>
-      <p> Number of Comments : {{comments.length}}</p>
-  {{#if logininfo.loginstat}}
-       <button class="btn" id="Comment">Examine</button>
- {{/if}}
+<section class="card" id="blog{{id}}">
+  <header style="display:flex; justify-content: space-between; background-color:yellow">
+    <h5>Post Id: {{id}}</h5>
+    <h4>{{title}}</h4>
+    <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
+  </header>
+  <div class="card-body">
+    <p> {{content}}</p>
+    <h6> Number of Comments : {{comments.length}}</h6>
+    {{#if (if_Eq logininfo.usid user.id)}}
+    <div id="blogbutts" style="display: flex;" class="justify-space-between">
+      <button class="btn" style="color:white; "> Examine</button>
+      <button class="btn" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
     </div>
- {{#if logininfo.loginstat}}
-    <script>
-     function moveit(idt){
-      document.getElementById(`blog${idt}`).addEventListener('click', function () {
-        let idblog = {{id}}
-        let ppath = '/singlepost/'+ idblog.toString()
-      return document.location.replace(ppath);});}
-      moveit({{id}})
-    </script>
-{{/if}}
+    {{else}}
+    {{#if logininfo.loginstatus}}
+    <button class="btn" style="color:white; " id="Comment">Examine</button>
+    {{/if}}
+    {{/if}}
+
+
+  </div>
+</section>
+
+  {{#if logininfo.loginstatus}}
+  <script>
+
+  function moveit(){
+    var idd = {{id}}
+    var element = document.getElementById(`blog${idd}`); 
+    element.onclick = function(e) { 
+      e.stopPropagation();
+      e.preventDefault();
+      return document.location.replace(`/singlepost/${idd}`)
+        } 
+  }
+  moveit();
+ 
+  </script>
+  {{/if}}
+
+ 
+  <script>
+       function revealIt(idd,event) {
+      event.preventDefault();
+      event.stopPropagation();
+      document.getElementById(`EditBlog${idd}`).style.display = "block";
+      document.getElementById('blogbutts').style.display = "none";
+    }
+
+    async function DeleteIt(pkid) {
+      try {
+        const response = await fetch(`/api/blogposts/${pkid}`, { method: 'DELETE' });
+        if (response.ok) {
+          document.location.replace('/');
+        }
+      }
+      catch (err) { res.status(500).json({ message: 'Not deleted, not found' }) }
+    }
+
+    async function updateBlog(idd) {
+      try {
+        const title = document.querySelector(`#comtitle${idd}`).value.trim();
+        const content = document.querySelector(`#comcontent${idd}`).value.trim();
+        console.log(content)
+        if (content) {
+          const response = await fetch(`/api/blogposts/${idd}`, {
+            method: 'PUT',
+            body: JSON.stringify({ title, content }),
+            headers: { 'Content-Type': 'application/json' },
+          });
+
+          if (response.ok) {
+            document.location.replace('/');
+          }
+        }
+      }
+      catch (err) {
+        res.status(500).json({ message: 'Failed to edit comment.' })
+      }
+    };
+  </script>
+
 </section>

@@ -9,10 +9,10 @@
         <div class="card-body">
             {{blog.content}}
         </div>
-        {{#if ( if_Eq blog.user.id logininfo.id)}}
+        {{#if ( if_Eq blog.user.id logininfo.usid)}}
         <div id="postbutts" style="display: flex;">
-            <button class="btn" id="EditPost" onclick="revealeditpost()">EditMyPost</button>
-            <button class="btn" onclick="BlogDeleteIt({{blog.id}})">Delete Post</button>
+            <button class="btn" style=" color:white; margin: 5px; background-color:green" id="EditPost" onclick="revealeditpost()">Edit</button>
+            <button class="btn" style="color:white;margin: 5px; background-color:red" onclick="BlogDeleteIt({{blog.id}})">Delete</button>
         </div>
         {{/if}}
     </section>
@@ -51,8 +51,10 @@
             <div style="display:flex; flex-flow: row wrap; ">
                 <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
                 <textarea rows="4" cols="50" id="newcontent" name="content" form="blogposting"></textarea>
+                <div style="display: none;">
                 <textarea name="PostRef" id="newPostRef" cols="30" rows="1">{{blog.id}}</textarea>
                 <textarea name="commentor" id="newcommentor" cols="30" rows="1">{{logininfo.id}}</textarea>
+                </div>
                 <button id="submitComment" onclick='subComment()'>SubmitComment</button>
             </div>
         </div>
