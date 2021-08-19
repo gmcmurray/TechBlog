@@ -5,14 +5,14 @@ router.post('/login', async (req, res) => {
   try {
     // Find the user who matches the posted e-mail address
     const userData = await User.findOne({ where: { email: req.body.email } });
-console.log("userdata",userData)
+    console.log("userdata", userData)
     if (!userData) {
       res
         .status(400)
         .json({ message: 'Incorrect email or password, please try again' });
       return;
     }
-console.log("logging in here")
+    console.log("logging in here")
     // Verify the posted password with the password store in the database
     const validPassword = await userData.checkPassword(req.body.password);
 
@@ -28,9 +28,9 @@ console.log("logging in here")
       req.session.user_name = userData.name;
       req.session.user_id = userData.id;
       req.session.logged_in = true;
-      req.session.logininfo={usid:userData.id,loginstatus:true};
-     
-      
+      req.session.logininfo = { usid: userData.id, loginstatus: true };
+
+
       res.json({ user: userData, message: 'You are now logged in!' });
     });
 
@@ -50,4 +50,21 @@ router.post('/logout', (req, res) => {
   }
 });
 
+router.post('/', async (req, res) => {
+
+  try {
+      const userData = await User.create({
+        name: req.body.name,
+        email: req.body.email,
+        password: req.body.password});
+
+      res.status(200).json(userData);
+
+  } catch (error) {
+      console.error(error);
+      res.status(500).json(error)
+  }
+
+});
 module.exports = router;
+
