@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { User } = require('../../models');
 
+// User login
 router.post('/login', async (req, res) => {
   try {
     // Find the user who matches the posted e-mail address
@@ -39,6 +40,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// User logout
 router.post('/logout', (req, res) => {
   if (req.session.logged_in) {
     // Remove the session variables
@@ -50,6 +52,7 @@ router.post('/logout', (req, res) => {
   }
 });
 
+// User signup
 router.post('/', async (req, res) => {
 
   try {
@@ -66,5 +69,6 @@ router.post('/', async (req, res) => {
   }
 
 });
+
 module.exports = router;
 

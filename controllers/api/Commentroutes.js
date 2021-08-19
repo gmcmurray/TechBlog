@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const { Comments } = require('../../models');
 const withAuth = require('../../utils/auth');
-// withAuth,
+
 // Prevent non logged in users from viewing the homepage
 router.post('/',  withAuth, async (req, res) => {
   try {
@@ -14,7 +14,6 @@ router.post('/',  withAuth, async (req, res) => {
     
     return res.json(newComment)
  
-    // });
   } catch (err) {
     console.log(err)
    
@@ -35,14 +34,11 @@ router.put('/:id',  withAuth, async (req, res) => {
     
     return res.json(updateComment)
  
-    // });
   } catch (err) {
     console.log(err)
-   
     res.status(500).json(err);
   }
 });
-
 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
@@ -53,8 +49,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     });
     
     return res.json(oldComment)
- 
-    // });
+
   } catch (err) {
     console.log(err)
    
@@ -70,7 +65,6 @@ router.get('/',  withAuth, async (req, res) => {
     
     return res.json(newComments)
  
-    // });
   } catch (err) {
     console.log(err)
    
@@ -86,11 +80,11 @@ router.get('/:id',  withAuth, async (req, res) => {
     
     return res.json(newComment)
  
-    // });
   } catch (err) {
     console.log(err)
    
     res.status(500).json(err);
   }
 });
+
 module.exports=router

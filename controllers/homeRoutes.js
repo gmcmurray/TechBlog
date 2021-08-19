@@ -6,8 +6,6 @@ const Sequelize = require('sequelize');
 router.get('/', async (req, res) => {
   try {
     const userBlogs = await BlogPost.findAll({ 
-      // include: [{ all: true, nested: true }]
-      // attributes: ['blogpost.*', 'comments.*', [Sequelize.fn('COUNT', 'comments.PostRef'), 'CommentCount']],
       include: [{model: User}, {model: Comments}]
     });
 

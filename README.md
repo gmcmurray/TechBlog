@@ -20,11 +20,11 @@ Tech Blog is a CWS style blog site which has user authentication.  It is a full 
 ## 2. Installation <a id="install"></a>
 Installation Instructions: 
 
-Go to Heroku to xxxxx to use the app.  For localserver installatioin you will need to download the package to a folder, run npm i in top level folder containing package.json. Then setup data base through mysql -u 'youruserid' -p login. Source the schema.sql file and then exit out. Load seeds by running seed.js file. Once all these tasks have been successfully completed run npm start and open a browser to : localhost:5001
+For online use go to Heroku (address below) to use the app.  For localserver installation you will need to download the package to a folder, run npm i in top level folder containing package.json. Then setup data base through mysql -u 'youruserid' -p login. Source the schema.sql file and then exit out. Load seeds by running seed.js file. Once all these tasks have been successfully completed run npm start and open a browser to : localhost:5001
 
 Files used in API found : https://github.com/gmcmurray/TechBlog 
 
-API deployed here : herokuxxx
+API deployed here : https://techblog-gmcmurray.herokuapp.com/
 
 -------------------------------------------------
 

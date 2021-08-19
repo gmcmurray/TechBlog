@@ -33,14 +33,12 @@ router.put('/:id',  withAuth, async (req, res) => {
     
     return res.json(updateBlog)
  
-    // });
   } catch (err) {
     console.log(err)
    
     res.status(500).json(err);
   }
 });
-
 
 router.delete('/:id', withAuth, async (req, res) => {
   try {
@@ -52,7 +50,6 @@ router.delete('/:id', withAuth, async (req, res) => {
     
     return res.json(oldBlog)
  
-    // });
   } catch (err) {
     console.log(err)
    
@@ -66,14 +63,14 @@ router.get('/:id', withAuth, async (req, res) => {
     });
     
     return res.json(oldBlog)
- 
-    // });
+
   } catch (err) {
     console.log(err)
    
     res.status(500).json(err);
   }
 });
+
 router.get('/',  withAuth, async (req, res) => {
   try {
     const newBlog = await BlogPost.findAll({
@@ -82,7 +79,6 @@ router.get('/',  withAuth, async (req, res) => {
     
     return res.json(newBlog)
  
-    // });
   } catch (err) {
     console.log(err)
    

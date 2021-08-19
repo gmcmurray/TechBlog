@@ -10,8 +10,6 @@ User.hasMany(BlogPost, {
 BlogPost.belongsTo(User, {
   foreignKey: 'creator'
 });
-// Comments.hasOne(User);
-// Comments.hasOne(BlogPost);
 
 User.hasMany(Comments, {
   foreignKey: 'commentor'
@@ -22,7 +20,8 @@ Comments.belongsTo(User,{
 })
 
 BlogPost.hasMany(Comments,{
-    foreignKey: 'PostRef'
+    foreignKey: 'PostRef',
+    onDelete: 'SET NULL'
 })
 
 Comments.belongsTo(BlogPost,{

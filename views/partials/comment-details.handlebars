@@ -40,7 +40,7 @@
           const response = await fetch(`/api/comments/${pkid}`, { method: 'DELETE' });
           if (response.ok) {
             console.log(`/api/comments/${pkid}`)
-            document.location.replace('/');
+            document.location.reload();
           }
         }
         catch (err) { console.log('Not deleted, not found') }
