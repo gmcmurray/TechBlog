@@ -77,6 +77,7 @@ The following tests and tools were conducted on the API:
 For any questions you can email me at:
 gmcmurray1493@gmail.com
 
-My github username is : gmcmurray
+My github username is : 
+gmcmurray
 
 ---------------------------------
