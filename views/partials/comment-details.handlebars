@@ -1,24 +1,26 @@
-<section class="card comment" id="{{id}}">
+<section class="cardComment" id="{{id}}">
+  <div style=" background-color:lime">
+     <h5 > Comment : {{title}}</h5>
   <header style="display:flex; justify-content: space-between; background-color:lime">
-    <h6>Comm: {{id}}, PostRef : {{PostRef}}</h6>
-    <h6>{{title}}</h6>
-    <h6>posted by {{user.name}}<span> on </span>{{format_date comment.createdAt}}</h6>
+    <h6>Blog Ref : {{PostRef}}</h6>
+    {{!-- <h6>{{title}}</h6> --}}
+    <h6 style="font-size: 1em;">posted by {{user.name}}<span> on </span>{{format_date comment.createdAt}}</h6>
   </header>
-
+</div>
   <div class="card-body">
     <p> {{content}}</p>
     {{#if (if_Eq commentor logininfo.usid)}}
     <div id="commbutts" style="display: flex;" class="justify-space-between">
-      <button class="btn"  style="color:white; background-color:yellowgreen" onclick="rrevealIt({{id}})">Edit</button>
-      <button class="btn" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
+      <button class="btn"  style="color:white; border: black solid 2px;background-color:yellowgreen" onclick="rrevealIt({{id}})">Edit</button>
+      <button class="btn" style="color:white; border: black solid 2px;background-color:red" onclick="DeleteIt({{id}})">Delete</button>
     </div>
   {{/if}}
     <div id="EditComment{{id}}" style="display: none;">
       <div id="editcommentinput" class="col-md-8">
         <div style="display:flex; flex-flow: row wrap; ">
-          <h4>Comment Title:</h4> <textarea rows="1" cols="10" id="comtitle{{id}}" name="title">{{title}}</textarea>
+          <h4>Comment Title:</h4> <textarea rows="2" cols="30" id="comtitle{{id}}" name="title">{{title}}</textarea>
           <div>
-            <h4> Comment Content:</h4><textarea rows="4" cols="60" id="comcontent{{id}}"
+            <h4> Comment Content:</h4><textarea rows="6" cols="50" class="commentcont" id="comcontent{{id}}"
               name="content">{{content}}</textarea>
             <button class="btn" style="color: white; font:900" onclick="updateComment( {{id}})">Update</button>
           </div>

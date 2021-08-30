@@ -1,9 +1,11 @@
 <section class="card" id="blog{{id}}">
+  <div style="background-color:yellow">
+  <h4>Blog Title: {{title}}</h4>
   <header style="display:flex; justify-content: space-between; background-color:yellow">
     <h5>Post Id: {{id}}</h5>
-    <h4>{{title}}</h4>
     <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
   </header>
+  </div>
   <div class="card-body">
     <p> {{content}}</p>
     <h6> Number of Comments : {{comments.length}}</h6>

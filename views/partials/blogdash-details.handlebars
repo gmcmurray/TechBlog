@@ -1,84 +1,44 @@
 <section class="card" id="blog{{id}}">
-  <header style="display:flex; justify-content: space-between; background-color:yellow">
-    <h5>Post Id: {{id}}</h5>
-    <h4>{{title}}</h4>
-    <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
-  </header>
+
+  <div style="background-color:yellow">
+      <h4>Blog Title: {{title}}</h4>
+      <header style="display:flex; justify-content: space-between; background-color:yellow">
+        <h5> Blog ID: {{id}}</h5>
+        <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
+      </header>
+  </div>
+
   <div class="card-body">
     <p> {{content}}</p>
     <h6> Number of Comments : {{comments.length}}</h6>
     {{#if (if_Eq logininfo.usid user.id)}}
     <div id="blogbutts{{id}}" style="display: flex;" class="justify-space-between buttoncontainer">
-      <button class="btn" id="revelit{{id}}" style="color:white; background-color:yellowgreen"  onclick="revealIt()" > Edit</button>
-      <button class="btn" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
+      <button class="btnedit" id="revelit{{id}}" style="color:white; background-color:yellowgreen" onclick="revealIt({{id}})">
+        Edit</button>
+      <button class="btndel" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
     </div>
     {{else}}
     {{#if logininfo.loginstatus}}
     <button class="btn" style="color:white; " id="Comment">Examine</button>
     {{/if}}
     {{/if}}
+  </div>
 
-    <section id="EditBlog{{id}}" style="display: none;">
-      <div id="editcommentinput" class="col-md-8">
-        <div style="display:flex; flex-flow: row wrap; ">
-          <h4>Blog Title:</h4> <textarea rows="1" cols="10" id="blogtitle{{id}}" name="title">{{title}}</textarea>
-          <div>
-            <h4> Blog Content:</h4><textarea rows="4" cols="60" id="blogcontent{{id}}"
-              name="content">{{content}}</textarea>
-            <button class="btn" style="color: white" onclick="updateBlog( {{id}})">Update{{id}}</button>
-          </div>
+  <section id="EditBlog{{id}}" style="display: none;">
+    <div id="editcommentinput" class="col-md-8">
+      <div style="display:flex; flex-flow: row wrap; ">
+        <h4>Blog Title:</h4> <textarea rows="1" cols="10" id="blogtitle{{id}}" name="title">{{title}}</textarea>
+        <div>
+          <h4> Blog Content:</h4><textarea rows="4" cols="60" id="blogcontent{{id}}"
+            name="content">{{content}}</textarea>
+          <button class="btn" style="color: white" onclick="updateBlog( {{id}})">Update{{id}}</button>
         </div>
       </div>
-      </section>
+    </div>
+  </section>
 
   </div>
 </section>
-  <script>
-    
-       function revealIt() {
-      let idd = {{id}}
-      $(`#revelit${idd}`).click(function(event){
-        event.preventDefault();
-        event.stopPropagation();
-        $(`#EditBlog${idd}`).show();
-        $(`#blogbutts${idd}`).hide()
-
-      }) }
-     
-     revealIt();
-
-
-    async function DeleteIt(pkid) {
-      try {
-        const response = await fetch(`/api/blogposts/${pkid}`, { method: 'DELETE' });
-        if (response.ok) {
-          document.location.replace('/');
-        }
-      }
-      catch (err) { console.log('Not deleted, not found' ) }
-    }
-
-    async function updateBlog(idd) {
-      try {
-        const title = document.querySelector(`#blogtitle${idd}`).value.trim();
-        const content = document.querySelector(`#blogcontent${idd}`).value.trim();
-        console.log(content)
-        if (content) {
-          const response = await fetch(`/api/blogposts/${idd}`, {
-            method: 'PUT',
-            body: JSON.stringify({ title, content }),
-            headers: { 'Content-Type': 'application/json' },
-          });
-
-          if (response.ok) {
-            document.location.replace('/');
-          }
-        }
-      }
-      catch (err) {
-        console.log('Failed to edit comment.' )
-      }
-    };
-  </script>
+<script src="/js/blog-dash.js"></script>
 
 </section>

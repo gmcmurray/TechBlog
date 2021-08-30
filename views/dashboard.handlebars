@@ -1,10 +1,11 @@
 <div class="col align-center mb-5">
   <h2>MyDashboard : <span>  </span>   {{user_name}} </h2>
-  <div class="col-md-10">
+  <div class="col-md-10" style="padding: 0 auto;">
     {{#each blogs as |blog| }}
         {{> blogdash-details logininfo=../logininfo}}
     {{/each}}
-
+  </div>
+  <div class="col-md-10" style="padding: 0 auto;">
     {{#each comments as |comment|}}
       {{>comment-details logininfo=../logininfo}}
     {{/each}}
