@@ -3,7 +3,7 @@
   <div style="background-color:yellow">
       <h4>Blog Title: {{title}}</h4>
       <header style="display:flex; justify-content: space-between; background-color:yellow">
-        <h5> Blog ID: {{id}}</h5>
+        <h5> Post ID: {{id}}</h5>
         <h6>posted by {{user.name}}<span> on </span>{{format_date user.createdAt}}</h6>
       </header>
   </div>
@@ -15,7 +15,7 @@
     <div id="blogbutts{{id}}" style="display: flex;" class="justify-space-between buttoncontainer">
       <button class="btnedit" id="revelit{{id}}" style="color:white; background-color:yellowgreen" onclick="revealIt({{id}})">
         Edit</button>
-      <button class="btndel" style="color:white; background-color:red" onclick="DeleteIt({{id}})">Delete</button>
+      <button class="btndel" style="color:white; background-color:red" onclick="DeleteBlog({{id}})">Delete</button>
     </div>
     {{else}}
     {{#if logininfo.loginstatus}}
@@ -29,7 +29,7 @@
       <div style="display:flex; flex-flow: row wrap; ">
         <h4>Blog Title:</h4> <textarea rows="1" cols="10" id="blogtitle{{id}}" name="title">{{title}}</textarea>
         <div>
-          <h4> Blog Content:</h4><textarea rows="4" cols="60" id="blogcontent{{id}}"
+          <h4> Blog Content:</h4><textarea rows="6" cols="45" id="blogcontent{{id}}"
             name="content">{{content}}</textarea>
           <button class="btn" style="color: white" onclick="updateBlog( {{id}})">Update{{id}}</button>
         </div>
@@ -39,38 +39,38 @@
 
 
 </section>
-<script src="/js/blog-dash.js">
+<script src="/js/blog-dash.js"></script>
+<script>
+async function DeleteBlog(pkid) {
+  try {
+    const response = await fetch(`/api/blogposts/${pkid}`, { method: 'DELETE' });
+    if (response.ok) {
+      document.location.reload();
+    }
+  }
+  catch (err) { console.log('Not deleted, not found') }
+}
 
-  async function DeleteIt(pkid) {
-    try {
-      const response = await fetch(`/api/blogposts/${pkid}`, { method: 'DELETE' });
+async function updateBlog(idd) {
+  try {
+    const title = document.querySelector(`#blogtitle${idd}`).value.trim();
+    const content = document.querySelector(`#blogcontent${idd}`).value.trim();
+    console.log(content)
+    if (content) {
+      const response = await fetch(`/api/blogposts/${idd}`, {
+        method: 'PUT',
+        body: JSON.stringify({ title, content }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+
       if (response.ok) {
         document.location.reload();
       }
     }
-    catch (err) { console.log('Not deleted, not found') }
   }
-
-  async function updateBlog(idd) {
-    try {
-      const title = document.querySelector(`#blogtitle${idd}`).value.trim();
-      const content = document.querySelector(`#blogcontent${idd}`).value.trim();
-      console.log(content)
-      if (content) {
-        const response = await fetch(`/api/blogposts/${idd}`, {
-          method: 'PUT',
-          body: JSON.stringify({ title, content }),
-          headers: { 'Content-Type': 'application/json' },
-        });
-
-        if (response.ok) {
-          document.location.reload();
-        }
-      }
-    }
-    catch (err) {
-      console.log('Failed to edit comment.')
-    }
-  };
+  catch (err) {
+    console.log('Failed to edit comment.')
+  }
+};
 </script>
 </section>

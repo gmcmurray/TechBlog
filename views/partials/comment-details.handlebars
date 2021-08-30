@@ -15,12 +15,14 @@
       <button class="btn" style="color:white; border: black solid 2px;background-color:red" onclick="DeleteIt({{id}})">Delete</button>
     </div>
   {{/if}}
+  </div>
+  
     <div id="EditComment{{id}}" style="display: none;">
       <div id="editcommentinput" class="col-md-8">
         <div style="display:flex; flex-flow: row wrap; ">
           <h4>Comment Title:</h4> <textarea rows="2" cols="30" id="comtitle{{id}}" name="title">{{title}}</textarea>
           <div>
-            <h4> Comment Content:</h4><textarea rows="6" cols="50" class="commentcont" id="comcontent{{id}}"
+            <h4> Comment Content:</h4><textarea rows="6" cols="45" class="commentcont" id="comcontent{{id}}"
               name="content">{{content}}</textarea>
             <button class="btn" style="color: white; font:900" onclick="updateComment( {{id}})">Update</button>
           </div>
