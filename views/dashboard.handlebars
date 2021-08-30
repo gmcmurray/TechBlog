@@ -4,8 +4,7 @@
     {{#each blogs as |blog| }}
         {{> blogdash-details logininfo=../logininfo}}
     {{/each}}
-  </div>
-  <div class="col-md-10" style="padding: 0 auto;">
+
     {{#each comments as |comment|}}
       {{>comment-details logininfo=../logininfo}}
     {{/each}}
