@@ -7,6 +7,10 @@ body {
     flex-direction: column;
   }
 
+  .row{
+    display: flex;
+  }
+
   .topnav {
     overflow: hidden;
     background-color: #333;

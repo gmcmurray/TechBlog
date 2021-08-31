@@ -40,20 +40,20 @@
     {{>comment-details logininfo=../logininfo}}
     {{/each}}
 
-    <h4> Enter New Comment to Blog Post Id: {{blog.id}}</h4>
+    <h4> New Comment to Blog Post Id: {{blog.id}}</h4>
     <div id="butts" style="display: flex; ">
         <button class="btn" style="margin: 10px; color:white" onclick="newcomm()">NewComment</button>
     </div>
 
-    <section id="NewComment" style="display: none;">
+    <section id="NewComment" style="display: none;border: green 3px solid; border-radius: 1em; max-width: 350px">
         <div id="commentinput" class="col-md-8">
             <div style="display:flex; flex-flow: row wrap; ">
                 <h5 style: 'margin: 0 10px 0 0'>Comment Title: </h5>
-                <textarea name="title" id="newtitle" cols="30" rows="1"></textarea>
+                <textarea name="title" id="newtitle" cols="25" rows="1"></textarea>
             </div>
             <div style="display:flex; flex-flow: row wrap; ">
                 <h5 style: 'margin: 0 10px 0 0'>Comment Content : </h5>
-                <textarea rows="4" cols="50" id="newcontent" name="content" form="blogposting"></textarea>
+                <textarea rows="6" cols="40" id="newcontent" name="content" form="blogposting"></textarea>
                 <div style="display: none;">
                 <textarea name="PostRef" id="newPostRef" cols="30" rows="1">{{blog.id}}</textarea>
                 <textarea name="commentor" id="newcommentor" cols="30" rows="1">{{logininfo.id}}</textarea>

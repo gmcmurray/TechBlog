@@ -1,46 +1,55 @@
-<div class="col align-left mb-10">
-  <div style="display: flex;">
+<div class=" col ">
+  <div style="row">
     {{#if logininfo.loginstatus}}
-<div class="instructions" >
+    <div class="instructions ">
       <ul>
-        <li><h5>To add comment to a post click on Examine a post below</h5></li>
-        <li><h5>To edit your comments or posts goto MyDashboard</h5></li>
-        <li><h5>To add a New Post Click on New Post => </h5></li>
+        <li>
+          <h5>To add comment to a post click on Examine a post below</h5>
+        </li>
+        <li>
+          <h5>To edit your comments or posts goto MyDashboard</h5>
+        </li>
+        <li>
+          <h5>To add a New Post Click on New Post => </h5>
+        </li>
       </ul>
     </div>
     <div id="butts" style="display: flex; ">
       <button class="btn" style="margin: 10px; color:white" onclick="newpost()">NewPost</button>
     </div>
-    {{else}}
-      <ul>
-        <li><h5>Login/Sign Up to add Post or Comments</h5></li>
-      </ul>
-      </div>
-  {{/if}}
- 
-  </div>
 
-  {{!-- style="display:flex; flex-flow: column wrap" --}}
-  <div id="NewPosts" style="display: none;">
-    <div id="postinput" class="col-md-8">
-      <div style="display:flex; flex-flow: row wrap; ">
-        <h5 style: 'margin: 0 10px 0 0'>Post Title: </h5>
-        <textarea name="title" id="title" cols="30" rows="1"></textarea>
-      </div>
-      <div style="display:flex; flex-flow: row wrap; ">
-        <h5 style: 'margin: 0 10px 0 0'>Blog Content : </h5>
-        <textarea rows="4" cols="50" id="content" name="content" form="blogposting"></textarea>
-        <button id="submitPost" onclick='subPost({{logininfo.usid}})'>SubmitPost</button>
+    {{else}}
+
+    <h5 style="border: green 3px solid;border-radius: 1em; padding: 0.5em; margin: 0 auto">Login/Sign Up to add Post or
+      Comments</h5>
+
+
+    {{/if}}
+
+
+    <div id="NewPosts" style="display: none; border: green 3px solid; border-radius: 1em">
+      <div id="postinput" class="col-md-8">
+        <div style="display:flex; flex-flow: row wrap; ">
+          <h5 style: 'margin: 0 10px 0 0'>Post Title: </h5>
+          <textarea name="title" id="title" cols="30" rows="1"></textarea>
+        </div>
+        <div style="display:flex; flex-flow: row wrap; ">
+          <h5 style: 'margin: 0 10px 0 0'>Blog Content : </h5>
+          <textarea rows="4" cols="50" id="content" name="content" form="blogposting"></textarea>
+          <button id="submitPost" onclick='subPost({{logininfo.usid}})'>SubmitPost</button>
+        </div>
       </div>
     </div>
-  </div>
 
-  {{!-- <h2>{{user_name}} <span> {{user_id}} </span> Logged In</h2> --}}
-  <div class="col-md-8">
-    {{#each blogs as |blog| }}
-    {{> blog-details logininfo=../logininfo }}
-    {{/each}}
-  </div>
+ </div>
+    <div class="col">
+      {{#each blogs as |blog| }}
+      {{> blog-details logininfo=../logininfo }}
+      {{/each}}
+    </div>
+
+ 
+
 </div>
 <script>
   function newpost() {
