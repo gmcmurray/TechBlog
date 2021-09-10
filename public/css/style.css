@@ -5,6 +5,7 @@ body {
   .col{
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
 
   .row{
@@ -40,17 +41,17 @@ body {
     display: none;
   }
   
-  @media screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
    .topnav a {display: none;}
     .topnav a.icon {
       float: right;
       display: block;
     }
-
-
+   
   }
+
   
-  @media screen and (max-width: 600px) {
+  @media only screen and (max-width: 600px) {
     .topnav.responsive {position: relative;}
     .topnav.responsive .icon {
       position: absolute;
@@ -69,24 +70,40 @@ body {
     padding: 1em 1em;
     margin: 2em 0.5em;
     font:black;
-    /* background-color: teal; */
     max-height: 4em;;
+    max-width: 8em;
   }
   
   .instructions {
       border:5px solid orange;
       border-radius: 1em;
       max-width: 500px;
-      margin: 10px auto;
+      margin: 10px auto; 
       padding: 1em;
   }
 
-  .cardComment,.card {
+  .cardComment, * .card {
       display: flex;
       flex-direction: column;
-      max-width: 500px;
-      min-width: 350px;
+      max-width: 590px;
+      min-width: 590px;  
       border: 3px solid black;
       margin: 5px auto;
-      /* padding: 0.5em; */
+  }
+
+  @media only screen and (max-width: 600px) {
+    .cardComment,* .card {
+      max-width: 480px;
+      min-width: 480px;  
+      border: 3px solid black;
+      margin: 5px auto;
+    }
+  }
+  @media only screen and (max-width: 490px) {
+    .cardComment,* .card {
+      max-width: 400px;
+      min-width: 400px;  
+      border: 3px solid black;
+      margin: 5px auto;
+    }
   }

@@ -1,5 +1,5 @@
 <div class=" col ">
-  <div style="row">
+  <div style="max-width: 500px;">
     {{#if logininfo.loginstatus}}
     <div class="instructions ">
       <ul>
@@ -14,7 +14,7 @@
         </li>
       </ul>
     </div>
-    <div id="butts" style="display: flex; ">
+    <div id="butts" >
       <button class="btn" style="margin: 10px; color:white" onclick="newpost()">NewPost</button>
     </div>
 
@@ -40,8 +40,8 @@
         </div>
       </div>
     </div>
-
  </div>
+
     <div class="col">
       {{#each blogs as |blog| }}
       {{> blog-details logininfo=../logininfo }}
